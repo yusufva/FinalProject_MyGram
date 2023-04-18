@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"final-project/dto"
 	"time"
 
 	"gorm.io/gorm"
@@ -16,4 +17,16 @@ type Photo struct {
 	CreatedAt time.Time      `gorm:"default:now()" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"default:now()" json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+}
+
+func (p *Photo) EntityToProductResponseDto() dto.PhotoResponse {
+	return dto.PhotoResponse{
+		ID:        p.ID,
+		Title:     p.Title,
+		Caption:   p.Caption,
+		Photo_Url: p.Photo_Url,
+		UserID:    p.UserID,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
+	}
 }

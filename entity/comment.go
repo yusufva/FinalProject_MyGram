@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"final-project/dto"
 	"time"
 
 	"gorm.io/gorm"
@@ -14,4 +15,15 @@ type Comment struct {
 	CreatedAt time.Time      `gorm:"default:now()" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"default:now()" json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+}
+
+func (c *Comment) EntityToProductResponseDto() dto.CommentResponse {
+	return dto.CommentResponse{
+		ID:        c.ID,
+		UserID:    c.UserID,
+		PhotoID:   c.PhotoID,
+		Message:   c.Message,
+		CreatedAt: c.CreatedAt,
+		UpdatedAt: c.UpdatedAt,
+	}
 }
