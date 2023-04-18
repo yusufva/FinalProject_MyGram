@@ -13,7 +13,7 @@ type PhotoService interface {
 	GetAllPhoto() (*dto.GetPhotoResponse, errrs.MessageErr)
 	GetPhotoById(photoId int) (*dto.PhotoResponse, errrs.MessageErr)
 	GetPhotoByUser(userId int) (*dto.GetPhotoResponse, errrs.MessageErr)
-	CreateNewPhoto(photoPayload dto.NewPhotoRequest) (*dto.NewPhotoResponse, errrs.MessageErr)
+	CreateNewPhoto(userId int, photoPayload dto.NewPhotoRequest) (*dto.NewPhotoResponse, errrs.MessageErr)
 	UpdatePhotoById(photoId int, photoPayload dto.NewPhotoRequest) (*dto.NewPhotoResponse, errrs.MessageErr)
 	DeletePhotoById(photoId int) (*dto.NewPhotoResponse, errrs.MessageErr)
 }
@@ -86,7 +86,7 @@ func (p *photoService) GetPhotoByUser(userId int) (*dto.GetPhotoResponse, errrs.
 	return &response, nil
 }
 
-func (p *photoService) CreateNewPhoto(photoPayload dto.NewPhotoRequest) (*dto.NewPhotoResponse, errrs.MessageErr) {
+func (p *photoService) CreateNewPhoto(userId int, photoPayload dto.NewPhotoRequest) (*dto.NewPhotoResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(photoPayload)
 
 	if err != nil {
@@ -97,7 +97,7 @@ func (p *photoService) CreateNewPhoto(photoPayload dto.NewPhotoRequest) (*dto.Ne
 		Title:     photoPayload.Title,
 		Caption:   photoPayload.Caption,
 		Photo_Url: photoPayload.Photo_Url,
-		UserID:    photoPayload.UserID,
+		UserID:    userId,
 	}
 
 	_, err = p.photoRepo.CreateNewPhoto(photoRequest)
