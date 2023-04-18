@@ -96,9 +96,10 @@ func (u *User) ValidateToken(bearerToken string) errrs.MessageErr {
 
 func (u *User) tokenClaim() jwt.MapClaims {
 	return jwt.MapClaims{
-		"id":    u.ID,
-		"email": u.Email,
-		"exp":   time.Now().Add(time.Minute * 120).Unix(),
+		"id":       u.ID,
+		"email":    u.Email,
+		"username": u.Username,
+		"exp":      time.Now().Add(time.Minute * 120).Unix(),
 	}
 }
 
