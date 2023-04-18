@@ -1,7 +1,9 @@
 package main
 
-import "final-project/database"
+import (
+	"final-project/handler"
+)
 
 func main() {
-	database.InitializeDatabase()
+	handler.StartApp()
 }
