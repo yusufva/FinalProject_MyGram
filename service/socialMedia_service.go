@@ -12,7 +12,7 @@ import (
 type SocialMediaService interface {
 	GetAllSocialMedia() (*dto.GetSocialMediaResponse, errrs.MessageErr)
 	GetSocialMediaById(socmedId int) (*dto.SocialMediaResponse, errrs.MessageErr)
-	CreateSocialMedia(socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
+	CreateSocialMedia(userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 	UpdateSocialMediaById(socmedId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 	DeleteSocialMedia(socmedId int) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 }
@@ -62,7 +62,7 @@ func (s *socialMediaService) GetSocialMediaById(socmedId int) (*dto.SocialMediaR
 	return &response, nil
 }
 
-func (s *socialMediaService) CreateSocialMedia(socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr) {
+func (s *socialMediaService) CreateSocialMedia(userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(socmedPayload)
 
 	if err != nil {

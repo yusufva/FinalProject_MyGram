@@ -13,7 +13,7 @@ type CommentService interface {
 	GetAllCommentByPhoto(photoId int) (*dto.GetCommentResponse, errrs.MessageErr)
 	GetAllCommentByUser(userId int) (*dto.GetCommentResponse, errrs.MessageErr)
 	GetCommentById(commentId int) (*dto.CommentResponse, errrs.MessageErr)
-	CreateComment(commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
+	CreateComment(userId int, commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
 	UpdateCommentById(commentId int, CommentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
 	DeleteCommentById(commentId int) (*dto.NewCommentResponse, errrs.MessageErr)
 }
@@ -86,7 +86,7 @@ func (c *commentService) GetCommentById(commenId int) (*dto.CommentResponse, err
 	return &response, nil
 }
 
-func (c *commentService) CreateComment(commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr) {
+func (c *commentService) CreateComment(userId int, commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(commentPayload)
 
 	if err != nil {
