@@ -3,6 +3,7 @@ package user_pg
 import (
 	"final-project/entity"
 	"final-project/pkg/errrs"
+	"final-project/repository/user_repository"
 	"strings"
 
 	"gorm.io/gorm"
@@ -10,6 +11,12 @@ import (
 
 type userPG struct {
 	db *gorm.DB
+}
+
+func NewUserPg(db *gorm.DB) user_repository.UserRepository {
+	return &userPG{
+		db: db,
+	}
 }
 
 func (u *userPG) CreateNewUser(user entity.User) errrs.MessageErr {

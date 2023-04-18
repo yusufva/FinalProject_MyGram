@@ -3,12 +3,19 @@ package photo_pg
 import (
 	"final-project/entity"
 	"final-project/pkg/errrs"
+	"final-project/repository/photo_repository"
 
 	"gorm.io/gorm"
 )
 
 type photoPG struct {
 	db *gorm.DB
+}
+
+func NewPhotoPg(db *gorm.DB) photo_repository.PhotoRepository {
+	return &photoPG{
+		db: db,
+	}
 }
 
 func (p *photoPG) GetAllPhoto() ([]*entity.Photo, errrs.MessageErr) {

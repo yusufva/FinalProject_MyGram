@@ -3,12 +3,19 @@ package socialMedia_pg
 import (
 	"final-project/entity"
 	"final-project/pkg/errrs"
+	"final-project/repository/socialMedia_repository"
 
 	"gorm.io/gorm"
 )
 
 type socialMediaPG struct {
 	db *gorm.DB
+}
+
+func NewSocialMediaPg(db *gorm.DB) socialMedia_repository.SocialMediaRepository {
+	return &socialMediaPG{
+		db: db,
+	}
 }
 
 func (s *socialMediaPG) GetAllSocialMedia() ([]*entity.SocialMedia, errrs.MessageErr) {

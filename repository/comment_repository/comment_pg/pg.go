@@ -3,12 +3,19 @@ package comment_pg
 import (
 	"final-project/entity"
 	"final-project/pkg/errrs"
+	"final-project/repository/comment_repository"
 
 	"gorm.io/gorm"
 )
 
 type commentPG struct {
 	db *gorm.DB
+}
+
+func NewCommentPg(db *gorm.DB) comment_repository.CommentRepository {
+	return &commentPG{
+		db: db,
+	}
 }
 
 func (c *commentPG) GetAllCommentByPhoto(photoId int) ([]*entity.Comment, errrs.MessageErr) {
