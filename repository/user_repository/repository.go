@@ -9,4 +9,5 @@ type UserRepository interface {
 	CreateNewUser(user entity.User) errrs.MessageErr
 	GetUserById(userId int) (*entity.User, errrs.MessageErr)
 	GetUserByEmail(userEmail string) (*entity.User, errrs.MessageErr)
+	GetUserByUsername(username string) (*entity.User, errrs.MessageErr)
 }

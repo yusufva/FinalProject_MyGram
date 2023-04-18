@@ -11,7 +11,7 @@ import (
 
 type UserService interface {
 	CreateNewUser(payload dto.NewUserRequest) (*dto.NewUserResponse, errrs.MessageErr)
-	Login(payload dto.NewUserRequest) (*dto.LoginResponse, errrs.MessageErr)
+	Login(payload dto.LoginRequest) (*dto.LoginResponse, errrs.MessageErr)
 }
 
 type userService struct {
@@ -32,8 +32,10 @@ func (u *userService) CreateNewUser(payload dto.NewUserRequest) (*dto.NewUserRes
 	}
 
 	userEntity := entity.User{
+		Username: payload.Username,
 		Email:    payload.Email,
 		Password: payload.Password,
+		Age:      payload.Age,
 	}
 
 	err = userEntity.HashPassword()
@@ -57,18 +59,36 @@ func (u *userService) CreateNewUser(payload dto.NewUserRequest) (*dto.NewUserRes
 	return &response, nil
 }
 
-func (u *userService) Login(payload dto.NewUserRequest) (*dto.LoginResponse, errrs.MessageErr) {
+func (u *userService) Login(payload dto.LoginRequest) (*dto.LoginResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(payload)
 
 	if err != nil {
 		return nil, err
 	}
 
-	user, err := u.userRepo.GetUserByEmail(payload.Email)
+	var user *entity.User
+
+	// if payload.Email != "" {
+	// 	user, err := u.userRepo.GetUserByEmail(payload.Email)
+
+	// 	if err != nil {
+	// 		if err.Status() == http.StatusNotFound {
+	// 			return nil, errrs.NewUnauthenticatedError("invalid email/password")
+	// 		}
+	// 		return nil, err
+	// 	}
+
+	// 	isValidPassword := user.ComparePassword(payload.Password)
+
+	// 	if !isValidPassword {
+	// 		return nil, errrs.NewUnauthenticatedError("invalid email/password")
+	// 	}
+	// } else {
+	user, err = u.userRepo.GetUserByUsername(payload.Username)
 
 	if err != nil {
 		if err.Status() == http.StatusNotFound {
-			return nil, errrs.NewUnauthenticatedError("invalid email/password")
+			return nil, errrs.NewUnauthenticatedError("invalid username/password")
 		}
 		return nil, err
 	}
@@ -78,6 +98,7 @@ func (u *userService) Login(payload dto.NewUserRequest) (*dto.LoginResponse, err
 	if !isValidPassword {
 		return nil, errrs.NewUnauthenticatedError("invalid email/password")
 	}
+	// }
 
 	response := dto.LoginResponse{
 		Result:     "success",

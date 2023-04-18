@@ -58,3 +58,17 @@ func (u *userPG) GetUserByEmail(userEmail string) (*entity.User, errrs.MessageEr
 
 	return &user, nil
 }
+
+func (u *userPG) GetUserByUsername(username string) (*entity.User, errrs.MessageErr) {
+	user := entity.User{Username: username}
+	err := u.db.First(&user, "username = ?", user.Username).Error
+
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, errrs.NewNotFoundError("user not found")
+		}
+		return nil, errrs.NewInternalServerError("something went wrong")
+	}
+
+	return &user, nil
+}

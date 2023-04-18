@@ -38,15 +38,15 @@ func (uh *userHandler) Register(c *gin.Context) {
 }
 
 func (uh *userHandler) Login(c *gin.Context) {
-	var newUserRequest dto.NewUserRequest
+	var loginRequest dto.LoginRequest
 
-	if err := c.ShouldBindJSON(&newUserRequest); err != nil {
+	if err := c.ShouldBindJSON(&loginRequest); err != nil {
 		errBindJson := errrs.NewUnprocessibleEntityError("invalid request body")
 		c.JSON(errBindJson.Status(), errBindJson)
 		return
 	}
 
-	result, err := uh.userService.Login(newUserRequest)
+	result, err := uh.userService.Login(loginRequest)
 
 	if err != nil {
 		c.JSON(err.Status(), err)
