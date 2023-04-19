@@ -2,6 +2,7 @@ package handler
 
 import (
 	"final-project/database"
+	"final-project/docs"
 	"final-project/repository/comment_repository/comment_pg"
 	"final-project/repository/photo_repository/photo_pg"
 	"final-project/repository/socialMedia_repository/socialMedia_pg"
@@ -9,6 +10,8 @@ import (
 	"final-project/service"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 func StartApp() {
@@ -37,27 +40,51 @@ func StartApp() {
 
 	route := gin.Default()
 
+	docs.SwaggerInfo.BasePath = "/login"
+	docs.SwaggerInfo.Title = "Login API"
+	docs.SwaggerInfo.Schemes = []string{"http"}
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
 	userRoute := route.Group("/users")
 	{
 		userRoute.POST("/login", userHandler.Login)
 		userRoute.POST("/register", userHandler.Register)
 	}
 
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Title = "Photos API"
+	docs.SwaggerInfo.Schemes = []string{"http"}
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
 	photoRoute := route.Group("/photos")
 	{
 		photoRoute.GET("/", photoHandler.GetAllPhoto)
+		photoRoute.GET("/:photoId", photoHandler.GetPhotoById)
+		photoRoute.GET("/users/:photoId", photoHandler.GetPhotoByUser)
 		photoRoute.POST("/", authService.Authentication(), photoHandler.CreateNewPhoto)
+		photoRoute.PUT("/:photoId", authService.Authentication(), authService.AuthorizationPhoto(), photoHandler.UpdatePhotoById)
+		photoRoute.DELETE("/:photoId", authService.Authentication(), authService.AuthorizationPhoto(), photoHandler.DeletePhotoById)
+
 	}
 
 	commentRoute := route.Group("/comments")
 	{
+		commentRoute.GET("/users", authService.Authentication(), commentHandler.GetAllCommentByUser)
 		commentRoute.GET("/photos/:photoId", commentHandler.GetAllCommentByPhoto)
+		commentRoute.POST("/photos", authService.Authentication(), commentHandler.CreateComment)
+		commentRoute.PUT("/:commentId", authService.Authentication(), authService.AuthorizationComment(), commentHandler.UpdateCommentById)
+		commentRoute.DELETE("/:commentId", authService.Authentication(), authService.AuthorizationComment(), commentHandler.DeleteCommentById)
 	}
 
 	socmedRoute := route.Group("/socmeds")
 	{
 		socmedRoute.GET("/", socmedHandler.GetAllSocialMedia)
+		socmedRoute.GET("/:socmedId", socmedHandler.GetSocialMediaById)
+		socmedRoute.POST("/", authService.Authentication(), socmedHandler.CreateSocialMedia)
+		socmedRoute.PUT("/:socmedId", authService.Authentication(), authService.AuthorizationSocmed(), socmedHandler.UpdateSocialMediaById)
+		socmedRoute.DELETE("/:socmedId", authService.Authentication(), authService.AuthorizationSocmed(), socmedHandler.DeleteSocialMedia)
 	}
 
+	route.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	route.Run(":" + port)
 }

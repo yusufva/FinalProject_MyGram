@@ -5,7 +5,7 @@ import "time"
 type NewSocialMediaRequest struct {
 	Name             string `json:"name" valid:"required~name cannot be empty"`
 	Social_Media_URL string `json:"social_media_url" valid:"required~social media url cannot be empty"`
-	UserID           int    `json:"user_id" valid:"required~user id cannot be empty"`
+	UserID           int    `json:"user_id"`
 }
 
 type NewSocialMediaResponse struct {

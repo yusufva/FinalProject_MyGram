@@ -6,7 +6,7 @@ type NewPhotoRequest struct {
 	Title     string `json:"title" valid:"required~title cannot be empty"`
 	Caption   string `json:"caption"`
 	Photo_Url string `json:"photo_url" valid:"required~Photo URL cannot be empty"`
-	UserID    int    `json:"user_id" valid:"required~User id cannot be empty"`
+	UserID    int    `json:"user_id"`
 }
 
 type NewPhotoResponse struct {

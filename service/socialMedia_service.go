@@ -13,7 +13,7 @@ type SocialMediaService interface {
 	GetAllSocialMedia() (*dto.GetSocialMediaResponse, errrs.MessageErr)
 	GetSocialMediaById(socmedId int) (*dto.SocialMediaResponse, errrs.MessageErr)
 	CreateSocialMedia(userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
-	UpdateSocialMediaById(socmedId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
+	UpdateSocialMediaById(socmedId, userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 	DeleteSocialMedia(socmedId int) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 }
 
@@ -72,7 +72,7 @@ func (s *socialMediaService) CreateSocialMedia(userId int, socmedPayload dto.New
 	socmedRequest := &entity.SocialMedia{
 		Name:             socmedPayload.Name,
 		Social_Media_URL: socmedPayload.Social_Media_URL,
-		UserID:           socmedPayload.UserID,
+		UserID:           userId,
 	}
 
 	_, err = s.socialMediaRepo.CreateSocialMedia(socmedRequest)
@@ -90,7 +90,7 @@ func (s *socialMediaService) CreateSocialMedia(userId int, socmedPayload dto.New
 	return &response, nil
 }
 
-func (s *socialMediaService) UpdateSocialMediaById(socmedId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr) {
+func (s *socialMediaService) UpdateSocialMediaById(socmedId, userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(socmedPayload)
 
 	if err != nil {
@@ -98,6 +98,7 @@ func (s *socialMediaService) UpdateSocialMediaById(socmedId int, socmedPayload d
 	}
 
 	payload := &entity.SocialMedia{
+		ID:               socmedId,
 		Name:             socmedPayload.Name,
 		Social_Media_URL: socmedPayload.Social_Media_URL,
 		UserID:           socmedPayload.UserID,

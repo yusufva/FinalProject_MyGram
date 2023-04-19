@@ -37,6 +37,15 @@ func (uh *userHandler) Register(c *gin.Context) {
 	c.JSON(result.StatusCode, result)
 }
 
+// Login godoc
+// @Tags login
+// @Description User Login
+// @ID user-login
+// @Accept json
+// @Produce json
+// @Param RequestBody body dto.LoginRequest true "request body json"
+// @Success 201 {object} dto.LoginRequest
+// @Router /users/login [post]
 func (uh *userHandler) Login(c *gin.Context) {
 	var loginRequest dto.LoginRequest
 

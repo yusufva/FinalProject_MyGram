@@ -31,9 +31,12 @@ func (c *commentPG) GetAllCommentByPhoto(photoId int) ([]*entity.Comment, errrs.
 
 func (c *commentPG) GetAllCommentByUser(userId int) ([]*entity.Comment, errrs.MessageErr) {
 	var comments []*entity.Comment
-	err := c.db.Find(&comments, "user_id = ?", userId)
+	err := c.db.Find(&comments, "user_id = ?", userId).Error
 
 	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, errrs.NewNotFoundError("comment not found")
+		}
 		return nil, errrs.NewInternalServerError("error while getting comments data")
 	}
 

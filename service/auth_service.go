@@ -110,7 +110,7 @@ func (a *authService) AuthorizationSocmed() gin.HandlerFunc {
 		}
 
 		if socmed.UserID != user.ID {
-			unauthorizedErr := errrs.NewUnauthorizedError("you are not authorized to modify the product data")
+			unauthorizedErr := errrs.NewUnauthorizedError("you are not authorized to modify the social media data")
 			c.AbortWithStatusJSON(unauthorizedErr.Status(), unauthorizedErr)
 			return
 		}

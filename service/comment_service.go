@@ -14,7 +14,7 @@ type CommentService interface {
 	GetAllCommentByUser(userId int) (*dto.GetCommentResponse, errrs.MessageErr)
 	GetCommentById(commentId int) (*dto.CommentResponse, errrs.MessageErr)
 	CreateComment(userId int, commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
-	UpdateCommentById(commentId int, CommentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
+	UpdateCommentById(commentId, userId int, CommentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr)
 	DeleteCommentById(commentId int) (*dto.NewCommentResponse, errrs.MessageErr)
 }
 
@@ -94,7 +94,7 @@ func (c *commentService) CreateComment(userId int, commentPayload dto.NewComment
 	}
 
 	commentRequest := &entity.Comment{
-		UserID:  commentPayload.UserID,
+		UserID:  userId,
 		PhotoID: commentPayload.PhotoID,
 		Message: commentPayload.Message,
 	}
@@ -114,7 +114,7 @@ func (c *commentService) CreateComment(userId int, commentPayload dto.NewComment
 	return &response, nil
 }
 
-func (c *commentService) UpdateCommentById(commentId int, commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr) {
+func (c *commentService) UpdateCommentById(commentId, userId int, commentPayload dto.NewCommentRequest) (*dto.NewCommentResponse, errrs.MessageErr) {
 	err := helpers.ValidateStruct(commentPayload)
 
 	if err != nil {
@@ -122,7 +122,8 @@ func (c *commentService) UpdateCommentById(commentId int, commentPayload dto.New
 	}
 
 	payload := &entity.Comment{
-		UserID:  commentPayload.UserID,
+		ID:      commentId,
+		UserID:  userId,
 		PhotoID: commentPayload.PhotoID,
 		Message: commentPayload.Message,
 	}

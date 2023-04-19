@@ -40,14 +40,9 @@ func (ch *commentHandler) GetAllCommentByPhoto(c *gin.Context) {
 }
 
 func (ch *commentHandler) GetAllCommentByUser(c *gin.Context) {
-	userId, err := helpers.GetParamsId(c, "userId")
+	user := c.MustGet("userData").(entity.User)
 
-	if err != nil {
-		c.AbortWithStatusJSON(err.Status(), err)
-		return
-	}
-
-	allComments, err := ch.commentService.GetAllCommentByUser(userId)
+	allComments, err := ch.commentService.GetAllCommentByUser(user.ID)
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -105,6 +100,8 @@ func (ch *commentHandler) UpdateCommentById(c *gin.Context) {
 		return
 	}
 
+	user := c.MustGet("userData").(entity.User)
+
 	commentId, err := helpers.GetParamsId(c, "commentId")
 
 	if err != nil {
@@ -112,7 +109,7 @@ func (ch *commentHandler) UpdateCommentById(c *gin.Context) {
 		return
 	}
 
-	response, err := ch.commentService.UpdateCommentById(commentId, commentRequest)
+	response, err := ch.commentService.UpdateCommentById(commentId, user.ID, commentRequest)
 
 	if err != nil {
 		c.JSON(err.Status(), err)

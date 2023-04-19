@@ -123,13 +123,14 @@ func (p *photoService) UpdatePhotoById(photoId int, photoPayload dto.NewPhotoReq
 	}
 
 	payload := &entity.Photo{
+		ID:        photoId,
 		Title:     photoPayload.Title,
 		Caption:   photoPayload.Caption,
 		Photo_Url: photoPayload.Photo_Url,
 		UserID:    photoPayload.UserID,
 	}
 
-	err = p.photoRepo.UpdatePhotoById(photoId, payload)
+	err = p.photoRepo.UpdatePhotoById(payload)
 
 	if err != nil {
 		return nil, err

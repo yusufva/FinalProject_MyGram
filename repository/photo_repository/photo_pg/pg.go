@@ -69,7 +69,7 @@ func (p *photoPG) CreateNewPhoto(photoPayload *entity.Photo) (*entity.Photo, err
 	return &photo, nil
 }
 
-func (p *photoPG) UpdatePhotoById(photoId int, photoPayload *entity.Photo) errrs.MessageErr {
+func (p *photoPG) UpdatePhotoById(photoPayload *entity.Photo) errrs.MessageErr {
 	err := p.db.Model(photoPayload).Updates(entity.Photo{Title: photoPayload.Title, Caption: photoPayload.Caption, Photo_Url: photoPayload.Photo_Url}).Error
 
 	if err != nil {

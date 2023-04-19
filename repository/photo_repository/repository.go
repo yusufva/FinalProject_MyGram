@@ -10,6 +10,6 @@ type PhotoRepository interface {
 	GetPhotoById(photoId int) (*entity.Photo, errrs.MessageErr)
 	GetPhotoByUser(userId int) ([]*entity.Photo, errrs.MessageErr)
 	CreateNewPhoto(photoPayload *entity.Photo) (*entity.Photo, errrs.MessageErr)
-	UpdatePhotoById(photoId int, photoPayload *entity.Photo) errrs.MessageErr
+	UpdatePhotoById(photoPayload *entity.Photo) errrs.MessageErr
 	DeletePhotoById(photoId int) errrs.MessageErr
 }

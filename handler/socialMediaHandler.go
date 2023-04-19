@@ -87,8 +87,9 @@ func (sh *socialMediaHandler) UpdateSocialMediaById(c *gin.Context) {
 		c.AbortWithStatusJSON(err.Status(), err)
 		return
 	}
+	user := c.MustGet("userData").(entity.User)
 
-	response, err := sh.socialMediaService.UpdateSocialMediaById(socmedId, socmedRequest)
+	response, err := sh.socialMediaService.UpdateSocialMediaById(socmedId, user.ID, socmedRequest)
 
 	if err != nil {
 		c.AbortWithStatusJSON(err.Status(), err)

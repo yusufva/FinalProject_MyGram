@@ -3,8 +3,8 @@ package dto
 import "time"
 
 type NewCommentRequest struct {
-	UserID  int    `json:"user_id" valid:"required~user id cannot be empty"`
-	PhotoID int    `json:"photo_id" valid:"required~photo id cannot be empty"`
+	UserID  int    `json:"user_id"`
+	PhotoID int    `json:"photo_id"`
 	Message string `json:"message" valid:"required~message cannot be empty"`
 }
 

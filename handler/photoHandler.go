@@ -68,6 +68,16 @@ func (ph *photoHandler) GetPhotoByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, allPhotos)
 }
 
+// CreateNewPhoto godoc
+// @Tags photos
+// @Description Create New Photo Data
+// @ID create-new-photo
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RequestBody body dto.NewPhotoRequest true "request body json"
+// @Success 201 {object} dto.NewPhotoRequest
+// @Router /photos [post]
 func (ph *photoHandler) CreateNewPhoto(c *gin.Context) {
 	var photoRequest dto.NewPhotoRequest
 
