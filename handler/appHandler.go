@@ -40,8 +40,8 @@ func StartApp() {
 
 	route := gin.Default()
 
-	docs.SwaggerInfo.BasePath = "/login"
-	docs.SwaggerInfo.Title = "Login API"
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Title = "MyGram API"
 	docs.SwaggerInfo.Schemes = []string{"http"}
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "localhost:8080"
@@ -51,16 +51,11 @@ func StartApp() {
 		userRoute.POST("/register", userHandler.Register)
 	}
 
-	docs.SwaggerInfo.BasePath = "/"
-	docs.SwaggerInfo.Title = "Photos API"
-	docs.SwaggerInfo.Schemes = []string{"http"}
-	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
 	photoRoute := route.Group("/photos")
 	{
 		photoRoute.GET("/", photoHandler.GetAllPhoto)
 		photoRoute.GET("/:photoId", photoHandler.GetPhotoById)
-		photoRoute.GET("/users/:photoId", photoHandler.GetPhotoByUser)
+		photoRoute.GET("/users/:userId", photoHandler.GetPhotoByUser)
 		photoRoute.POST("/", authService.Authentication(), photoHandler.CreateNewPhoto)
 		photoRoute.PUT("/:photoId", authService.Authentication(), authService.AuthorizationPhoto(), photoHandler.UpdatePhotoById)
 		photoRoute.DELETE("/:photoId", authService.Authentication(), authService.AuthorizationPhoto(), photoHandler.DeletePhotoById)

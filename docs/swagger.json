@@ -4,7 +4,240 @@
         "contact": {}
     },
     "paths": {
+        "/comments/photos": {
+            "post": {
+                "description": "Create New Comment Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "create-comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "request body json",
+                        "name": "RequestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewCommentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewCommentResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/comments/photos/{photoId}": {
+            "get": {
+                "description": "Get All Comment Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "get-all-comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "photoId",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetCommentResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/comments/users": {
+            "get": {
+                "description": "Get All Comment By User Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "get-all-comment-by-user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetCommentResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/comments/{commentId}": {
+            "put": {
+                "description": "Update Comment Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "update-comment-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "request body json",
+                        "name": "RequestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewCommentRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "commentId",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewCommentResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Comment Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "delete-comment-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "commentId",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewCommentResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/photos": {
+            "get": {
+                "description": "Get All Photo Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photos"
+                ],
+                "operationId": "get-all-photo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetPhotoResponse"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Create New Photo Data",
                 "consumes": [
@@ -40,7 +273,361 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.NewPhotoRequest"
+                            "$ref": "#/definitions/dto.NewPhotoResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/photos/users/{userId}": {
+            "get": {
+                "description": "Get Photo By User Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photos"
+                ],
+                "operationId": "get-photo-by-user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "userId",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetPhotoResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/photos/{photoId}": {
+            "get": {
+                "description": "Get Photo By Id Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photos"
+                ],
+                "operationId": "get-photo-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "photoId",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PhotoResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Photo Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photos"
+                ],
+                "operationId": "update-photo-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "photoId",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewPhotoResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Photo Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photos"
+                ],
+                "operationId": "delete-photo-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "photoId",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewPhotoResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/socmeds": {
+            "get": {
+                "description": "Get All Social Media Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "get-all-social-Media",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetSocialMediaResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create New Social Media Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "create-new-social-media",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "request body json",
+                        "name": "RequestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewSocialMediaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewSocialMediaResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/socmeds/{socmedId}": {
+            "get": {
+                "description": "Get Social Media By Id Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "get-social-media-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "socmedId",
+                        "name": "socmedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.SocialMediaResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Social Media Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "update-social-media-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "request body json",
+                        "name": "RequestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewSocialMediaRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "socmedId",
+                        "name": "socmedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewSocialMediaResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Social Media Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "delete-social-media-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "socmedId",
+                        "name": "socmedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewSocialMediaResponse"
                         }
                     }
                 }
@@ -79,17 +666,185 @@
                     }
                 }
             }
+        },
+        "/users/register": {
+            "post": {
+                "description": "User Registers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Registers"
+                ],
+                "operationId": "user-register",
+                "parameters": [
+                    {
+                        "description": "request body json",
+                        "name": "RequestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.NewUserRequest"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "dto.CommentResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "message": {
+                    "type": "string",
+                    "example": "example comment"
+                },
+                "photo_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "dto.GetCommentResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.CommentResponse"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "comment data have been sent"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 200
+                }
+            }
+        },
+        "dto.GetPhotoResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PhotoResponse"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "photo data have been sent"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 200
+                }
+            }
+        },
+        "dto.GetSocialMediaResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.SocialMediaResponse"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "social media data have been sent"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 200
+                }
+            }
+        },
         "dto.LoginRequest": {
             "type": "object",
             "properties": {
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "examplepassword"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "exampleusername"
+                }
+            }
+        },
+        "dto.NewCommentRequest": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "example comment"
+                },
+                "photo_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "dto.NewCommentResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "comment have been created"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 201
                 }
             }
         },
@@ -97,16 +852,154 @@
             "type": "object",
             "properties": {
                 "caption": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "example caption"
                 },
                 "photo_url": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "http://examplephotourl.jpg"
                 },
                 "title": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "example title"
                 },
                 "user_id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "dto.NewPhotoResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "photo have been created"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "result"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 201
+                }
+            }
+        },
+        "dto.NewSocialMediaRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "example name"
+                },
+                "social_media_url": {
+                    "type": "string",
+                    "example": "https://examplesocmedurl.org"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "dto.NewSocialMediaResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "social media have been created"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statusCode": {
+                    "type": "integer",
+                    "example": 201
+                }
+            }
+        },
+        "dto.NewUserRequest": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "email": {
+                    "type": "string",
+                    "example": "example@mail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "examplepassword"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "exampleusername"
+                }
+            }
+        },
+        "dto.PhotoResponse": {
+            "type": "object",
+            "properties": {
+                "caption": {
+                    "type": "string",
+                    "example": "example caption"
+                },
+                "created_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "photo_url": {
+                    "type": "string",
+                    "example": "http://examplephotourl.jpg"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "example title"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "dto.SocialMediaResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "example name"
+                },
+                "social_media_url": {
+                    "type": "string",
+                    "example": "https://examplesocmedurl.org"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2023-01-01"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
                 }
             }
         }

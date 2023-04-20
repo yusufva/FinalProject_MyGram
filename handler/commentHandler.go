@@ -21,6 +21,16 @@ func NewCommentHandler(commentService service.CommentService) commentHandler {
 	}
 }
 
+// GetAllCommentsByPhoto godoc
+// @Tags comments
+// @Description Get All Comment Data
+// @ID get-all-comment
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param photoId path int true "photoId"
+// @Success 200 {object} dto.GetCommentResponse
+// @Router /comments/photos/{photoId} [get]
 func (ch *commentHandler) GetAllCommentByPhoto(c *gin.Context) {
 	photoId, err := helpers.GetParamsId(c, "photoId")
 
@@ -39,6 +49,15 @@ func (ch *commentHandler) GetAllCommentByPhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, allComments)
 }
 
+// GetAllCommentByUser godoc
+// @Tags comments
+// @Description Get All Comment By User Data
+// @ID get-all-comment-by-user
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Success 200 {object} dto.GetCommentResponse
+// @Router /comments/users [get]
 func (ch *commentHandler) GetAllCommentByUser(c *gin.Context) {
 	user := c.MustGet("userData").(entity.User)
 
@@ -70,6 +89,16 @@ func (ch *commentHandler) GetCommentById(c *gin.Context) {
 	c.JSON(http.StatusOK, &response)
 }
 
+// CreateComment godoc
+// @Tags comments
+// @Description Create New Comment Data
+// @ID create-comment
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RequestBody body dto.NewCommentRequest true "request body json"
+// @Success 201 {object} dto.NewCommentResponse
+// @Router /comments/photos [post]
 func (ch *commentHandler) CreateComment(c *gin.Context) {
 	var commentRequest dto.NewCommentRequest
 
@@ -91,6 +120,17 @@ func (ch *commentHandler) CreateComment(c *gin.Context) {
 	c.JSON(http.StatusCreated, newComment)
 }
 
+// UpdateCommentById godoc
+// @Tags comments
+// @Description Update Comment Data
+// @ID update-comment-by-id
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RequestBody body dto.NewCommentRequest true "request body json"
+// @Param commentId path int true "commentId"
+// @Success 200 {object} dto.NewCommentResponse
+// @Router /comments/{commentId} [put]
 func (ch *commentHandler) UpdateCommentById(c *gin.Context) {
 	var commentRequest dto.NewCommentRequest
 
@@ -119,6 +159,16 @@ func (ch *commentHandler) UpdateCommentById(c *gin.Context) {
 	c.JSON(http.StatusCreated, response)
 }
 
+// DeleteCommentById godoc
+// @Tags comments
+// @Description Delete Comment Data
+// @ID delete-comment-by-id
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param commentId path int true "commentId"
+// @Success 200 {object} dto.NewCommentResponse
+// @Router /comments/{commentId} [delete]
 func (ch *commentHandler) DeleteCommentById(c *gin.Context) {
 	commentId, err := helpers.GetParamsId(c, "commentId")
 

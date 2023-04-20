@@ -21,6 +21,15 @@ func NewSocialMediaHandler(socialMediaService service.SocialMediaService) social
 	}
 }
 
+// GetAllSocialMedia godoc
+// @Tags Social Media
+// @Description Get All Social Media Data
+// @ID get-all-social-Media
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Success 200 {object} dto.GetSocialMediaResponse
+// @Router /socmeds [get]
 func (sh *socialMediaHandler) GetAllSocialMedia(c *gin.Context) {
 	allSocmed, err := sh.socialMediaService.GetAllSocialMedia()
 
@@ -32,6 +41,16 @@ func (sh *socialMediaHandler) GetAllSocialMedia(c *gin.Context) {
 	c.JSON(allSocmed.StatusCode, allSocmed)
 }
 
+// GetSocialMediaById godoc
+// @Tags Social Media
+// @Description Get Social Media By Id Data
+// @ID get-social-media-by-id
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param socmedId path int true "socmedId"
+// @Success 200 {object} dto.SocialMediaResponse
+// @Router /socmeds/{socmedId} [get]
 func (sh *socialMediaHandler) GetSocialMediaById(c *gin.Context) {
 	socmedId, err := helpers.GetParamsId(c, "socmedId")
 
@@ -50,6 +69,16 @@ func (sh *socialMediaHandler) GetSocialMediaById(c *gin.Context) {
 	c.JSON(http.StatusOK, &response)
 }
 
+// CreateSocialMedia godoc
+// @Tags Social Media
+// @Description Create New Social Media Data
+// @ID create-new-social-media
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RequestBody body dto.NewSocialMediaRequest true "request body json"
+// @Success 201 {object} dto.NewSocialMediaResponse
+// @Router /socmeds [post]
 func (sh *socialMediaHandler) CreateSocialMedia(c *gin.Context) {
 	var socmedRequest dto.NewSocialMediaRequest
 
@@ -71,6 +100,17 @@ func (sh *socialMediaHandler) CreateSocialMedia(c *gin.Context) {
 	c.JSON(http.StatusCreated, newSocmed)
 }
 
+// UpdateSocialMediaById godoc
+// @Tags Social Media
+// @Description Update Social Media Data
+// @ID update-social-media-by-id
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RequestBody body dto.NewSocialMediaRequest true "request body json"
+// @Param socmedId path int true "socmedId"
+// @Success 200 {object} dto.NewSocialMediaResponse
+// @Router /socmeds/{socmedId} [put]
 func (sh *socialMediaHandler) UpdateSocialMediaById(c *gin.Context) {
 
 	var socmedRequest dto.NewSocialMediaRequest
@@ -99,6 +139,16 @@ func (sh *socialMediaHandler) UpdateSocialMediaById(c *gin.Context) {
 	c.JSON(response.StatusCode, response)
 }
 
+// DeleteSocialMediaById godoc
+// @Tags Social Media
+// @Description Delete Social Media Data
+// @ID delete-social-media-by-id
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param socmedId path int true "socmedId"
+// @Success 200 {object} dto.NewSocialMediaResponse
+// @Router /socmeds/{socmedId} [delete]
 func (sh *socialMediaHandler) DeleteSocialMedia(c *gin.Context) {
 	socmedId, err := helpers.GetParamsId(c, "socmedId")
 
