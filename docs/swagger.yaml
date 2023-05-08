@@ -77,6 +77,20 @@ definitions:
         example: exampleusername
         type: string
     type: object
+  dto.LoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/dto.TokenResponse'
+      message:
+        example: logged in successfully
+        type: string
+      result:
+        example: success
+        type: string
+      statusCode:
+        example: 200
+        type: integer
+    type: object
   dto.NewCommentRequest:
     properties:
       message:
@@ -167,6 +181,18 @@ definitions:
         example: exampleusername
         type: string
     type: object
+  dto.NewUserResponse:
+    properties:
+      message:
+        example: user have been created
+        type: string
+      result:
+        example: success
+        type: string
+      statuscode:
+        example: 201
+        type: integer
+    type: object
   dto.PhotoResponse:
     properties:
       caption:
@@ -212,6 +238,12 @@ definitions:
         example: 1
         type: integer
     type: object
+  dto.TokenResponse:
+    properties:
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE2ODE5ODU2MDUsImlkIjowLCJ1c2VybmFtZSI6ImV4YW1wbGV1c2VybmFtZSJ9.hNw3rzukG5U52N0mLRLSW9HKVxR1HUZX8qcgRFlgE70
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -240,6 +272,30 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/dto.NewCommentResponse'
+      tags:
+      - comments
+    get:
+      description: Get All Comment By Id Data
+      operationId: get-all-comment-by-id
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: commentId
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CommentResponse'
       tags:
       - comments
     put:
@@ -640,6 +696,31 @@ paths:
             $ref: '#/definitions/dto.NewSocialMediaResponse'
       tags:
       - Social Media
+  /socmeds/users/{userId}:
+    get:
+      description: Get Social Media By User Data
+      operationId: get-social-media-by-User
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: userId
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetSocialMediaResponse'
+      tags:
+      - Social Media
   /users/login:
     post:
       consumes:
@@ -659,7 +740,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.LoginRequest'
+            $ref: '#/definitions/dto.LoginResponse'
       tags:
       - login
   /users/register:
@@ -681,7 +762,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.NewUserRequest'
+            $ref: '#/definitions/dto.NewUserResponse'
       tags:
       - Registers
 swagger: "2.0"

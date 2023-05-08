@@ -132,6 +132,41 @@ const docTemplate = `{
             }
         },
         "/comments/{commentId}": {
+            "get": {
+                "description": "Get All Comment By Id Data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "operationId": "get-all-comment-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "commentId",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CommentResponse"
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "Update Comment Data",
                 "consumes": [
@@ -520,6 +555,43 @@ const docTemplate = `{
                 }
             }
         },
+        "/socmeds/users/{userId}": {
+            "get": {
+                "description": "Get Social Media By User Data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social Media"
+                ],
+                "operationId": "get-social-media-by-User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "userId",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetSocialMediaResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/socmeds/{socmedId}": {
             "get": {
                 "description": "Get Social Media By Id Data",
@@ -673,7 +745,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginRequest"
+                            "$ref": "#/definitions/dto.LoginResponse"
                         }
                     }
                 }
@@ -707,7 +779,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.NewUserRequest"
+                            "$ref": "#/definitions/dto.NewUserResponse"
                         }
                     }
                 }
@@ -823,6 +895,26 @@ const docTemplate = `{
                 "username": {
                     "type": "string",
                     "example": "exampleusername"
+                }
+            }
+        },
+        "dto.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.TokenResponse"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "logged in successfully"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statusCode": {
+                    "type": "integer",
+                    "example": 200
                 }
             }
         },
@@ -953,6 +1045,23 @@ const docTemplate = `{
                 }
             }
         },
+        "dto.NewUserResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "user have been created"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "statuscode": {
+                    "type": "integer",
+                    "example": 201
+                }
+            }
+        },
         "dto.PhotoResponse": {
             "type": "object",
             "properties": {
@@ -1012,6 +1121,15 @@ const docTemplate = `{
                 "user_id": {
                     "type": "integer",
                     "example": 1
+                }
+            }
+        },
+        "dto.TokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE2ODE5ODU2MDUsImlkIjowLCJ1c2VybmFtZSI6ImV4YW1wbGV1c2VybmFtZSJ9.hNw3rzukG5U52N0mLRLSW9HKVxR1HUZX8qcgRFlgE70"
                 }
             }
         }
