@@ -12,6 +12,7 @@ import (
 type SocialMediaService interface {
 	GetAllSocialMedia() (*dto.GetSocialMediaResponse, errrs.MessageErr)
 	GetSocialMediaById(socmedId int) (*dto.SocialMediaResponse, errrs.MessageErr)
+	GetSocialMediaByUser(userId int) (*dto.GetSocialMediaResponse, errrs.MessageErr)
 	CreateSocialMedia(userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 	UpdateSocialMediaById(socmedId, userId int, socmedPayload dto.NewSocialMediaRequest) (*dto.NewSocialMediaResponse, errrs.MessageErr)
 	DeleteSocialMedia(socmedId int) (*dto.NewSocialMediaResponse, errrs.MessageErr)
@@ -58,6 +59,29 @@ func (s *socialMediaService) GetSocialMediaById(socmedId int) (*dto.SocialMediaR
 	}
 
 	response := result.EntityToProductResponseDto()
+
+	return &response, nil
+}
+
+func (s *socialMediaService) GetSocialMediaByUser(userId int) (*dto.GetSocialMediaResponse, errrs.MessageErr) {
+	socmeds, err := s.socialMediaRepo.GetSocialMediaByUser(userId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	socmedResponse := []dto.SocialMediaResponse{}
+
+	for _, eachSocmed := range socmeds {
+		socmedResponse = append(socmedResponse, eachSocmed.EntityToProductResponseDto())
+	}
+
+	response := dto.GetSocialMediaResponse{
+		Result:     "success",
+		StatusCode: http.StatusOK,
+		Message:    "social media data have been sent successfully",
+		Data:       socmedResponse,
+	}
 
 	return &response, nil
 }

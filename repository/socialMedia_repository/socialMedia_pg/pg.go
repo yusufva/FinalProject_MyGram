@@ -43,6 +43,17 @@ func (s *socialMediaPG) GetSocialMediaById(socmedId int) (*entity.SocialMedia, e
 	return &socmed, nil
 }
 
+func (s *socialMediaPG) GetSocialMediaByUser(userId int) ([]*entity.SocialMedia, errrs.MessageErr) {
+	var socmeds []*entity.SocialMedia
+	err := s.db.Find(&socmeds, "user_id=?", userId).Error
+
+	if err != nil {
+		return nil, errrs.NewInternalServerError("error while getting social media data")
+	}
+
+	return socmeds, nil
+}
+
 func (s *socialMediaPG) CreateSocialMedia(socmedPayload *entity.SocialMedia) (*entity.SocialMedia, errrs.MessageErr) {
 	result := s.db.Create(&socmedPayload)
 	if result.Error != nil {

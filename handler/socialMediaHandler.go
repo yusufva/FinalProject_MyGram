@@ -69,6 +69,32 @@ func (sh *socialMediaHandler) GetSocialMediaById(c *gin.Context) {
 	c.JSON(http.StatusOK, &response)
 }
 
+// GetSocialMediaByUser godoc
+// @Tags Social Media
+// @Description Get Social Media By User Data
+// @ID get-social-media-by-User
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param userId path int true "userId"
+// @Success 200 {object} dto.GetSocialMediaResponse
+// @Router /socmeds/users/{userId} [get]
+func (sh *socialMediaHandler) GetSocialMediaByUser(c *gin.Context) {
+	userId, err := helpers.GetParamsId(c, "userId")
+
+	if err != nil {
+		c.AbortWithStatusJSON(err.Status(), err)
+		return
+	}
+
+	response, err := sh.socialMediaService.GetSocialMediaByUser(userId)
+
+	if err != nil {
+		c.AbortWithStatusJSON(err.Status(), err)
+	}
+
+	c.JSON(http.StatusOK, &response)
+}
+
 // CreateSocialMedia godoc
 // @Tags Social Media
 // @Description Create New Social Media Data
