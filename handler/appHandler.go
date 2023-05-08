@@ -66,6 +66,7 @@ func StartApp() {
 	{
 		commentRoute.GET("/users", authService.Authentication(), commentHandler.GetAllCommentByUser)
 		commentRoute.GET("/photos/:photoId", commentHandler.GetAllCommentByPhoto)
+		commentRoute.GET("/:commentId", authService.Authentication(), commentHandler.GetCommentById)
 		commentRoute.POST("/photos", authService.Authentication(), commentHandler.CreateComment)
 		commentRoute.PUT("/:commentId", authService.Authentication(), authService.AuthorizationComment(), commentHandler.UpdateCommentById)
 		commentRoute.DELETE("/:commentId", authService.Authentication(), authService.AuthorizationComment(), commentHandler.DeleteCommentById)
@@ -75,6 +76,7 @@ func StartApp() {
 	{
 		socmedRoute.GET("/", socmedHandler.GetAllSocialMedia)
 		socmedRoute.GET("/:socmedId", socmedHandler.GetSocialMediaById)
+		socmedRoute.GET("/users/:userId", authService.Authentication(), socmedHandler.GetSocialMediaByUser)
 		socmedRoute.POST("/", authService.Authentication(), socmedHandler.CreateSocialMedia)
 		socmedRoute.PUT("/:socmedId", authService.Authentication(), authService.AuthorizationSocmed(), socmedHandler.UpdateSocialMediaById)
 		socmedRoute.DELETE("/:socmedId", authService.Authentication(), authService.AuthorizationSocmed(), socmedHandler.DeleteSocialMedia)
