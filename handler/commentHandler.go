@@ -71,6 +71,15 @@ func (ch *commentHandler) GetAllCommentByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, allComments)
 }
 
+// GetAllCommentById godoc
+// @Tags comments
+// @Description Get All Comment By Id Data
+// @ID get-all-comment-by-id
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param commentId path int true "commentId"
+// @Success 200 {object} dto.CommentResponse
+// @Router /comments/{commentId} [get]
 func (ch *commentHandler) GetCommentById(c *gin.Context) {
 	commentId, err := helpers.GetParamsId(c, "commentId")
 
