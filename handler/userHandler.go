@@ -25,7 +25,7 @@ func NewUserHandler(userService service.UserService) userHandler {
 // @Accept json
 // @Produce json
 // @Param RequestBody body dto.NewUserRequest true "request body json"
-// @Success 201 {object} dto.NewUserRequest
+// @Success 201 {object} dto.NewUserResponse
 // @Router /users/register [post]
 func (uh *userHandler) Register(c *gin.Context) {
 	var newUserRequest dto.NewUserRequest
@@ -53,7 +53,7 @@ func (uh *userHandler) Register(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param RequestBody body dto.LoginRequest true "request body json"
-// @Success 201 {object} dto.LoginRequest
+// @Success 201 {object} dto.LoginResponse
 // @Router /users/login [post]
 func (uh *userHandler) Login(c *gin.Context) {
 	var loginRequest dto.LoginRequest
